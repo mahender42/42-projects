@@ -1,13 +1,16 @@
+/*Genérico, para evitar márgenes en blanco y que todo quede enmarcado en el espacio visible*/
 *{
     box-sizing:border-box;
     margin: 0;
     padding: 0;
 }
-body{
-    font-family: "Poppins", sans-serif;
-    --color1: #FFF;
-    --color2: #e07634;
+/*Defino fuente y variables de colores para todo el body*/
+body {
+    font-family: "Poppins", arial;
+    --color1: rgb(6, 5, 5);
+    --color2: #a92525;
 }
+/*Estilo de la barra de navegación*/
 .nav-bar {
     width: 100%;
     display: flex;
@@ -16,17 +19,14 @@ body{
     list-style: none;
     position: relative;
     background-color: var(--color2);
-    padding: 12px 20px;
+    height: 30px;
 }
+/*Para que el menú se vea horizontal y espcio entre items*/
+.menu {display: flex;}
 
-.menu {
-    display: flex;
-}
+.menu li {padding-left: 30px;}
 
-.menu li {
-    padding-left: 30px;
-}
-
+/*Estilo del texto de ambos menúes*/
 .menu li a {
     display: inline-block;
     text-decoration: none;
@@ -34,8 +34,24 @@ body{
     text-align: center;
     transition: 0.15s ease-in-out;
     position: relative;
+    text-transform: uppercase;
 }
 
+/*Efecto de subrrayado cuando paso el mouse por encima de las letras*/
+.menu li a::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--color1);
+    transition: 0.15s ease-in-out;
+}
+
+.menu li a:hover:after {width: 100%;}
+
+/*Manejo de la apertura y cierre del menú hamburuesa*/
 .open-menu, .close-menu {
     position: absolute;
     color: var(---color1);
@@ -43,22 +59,20 @@ body{
     font-size: 1.5rem;
     display: none;
 }
-
+/*Ubicar el menú hamburguesa a la derecha*/
 .open-menu {
     top: 50%;
     right: 20px;
     transform: translateY(-50%);
 }
-
+/*Ubicación de la X para cerrar el menú hambrguesa*/
 .close-menu {
     top: 20px;
     right: 20px;
 }
-
-#check {
-    display: none;
-}
-
+/*Esconder el checkbox*/
+#check {display: none;}
+/*Efecto responsive*/
 @media(max-width: 610px) {
 .menu {
     flex-direction: column;
@@ -73,20 +87,11 @@ body{
     background-color: var(--color2);
     transition: all 0.2s ease-in-out;
 }
-}
+.menu li {margin-top: 40px;}
 
-.menu li {
-    margin-top: 40px;
-}
+.menuli a {padding: 10px;}
 
-.menuli a {
-    padding: 10px;
-}
+.open-menu , .close-menu {display: block;}
 
-.open-menu , .close-menu {
-    display: block;
-}
-
-#check:checked ~ .menu {
-    right: 0;
+#check:checked ~ .menu {right: 0;}
 }
