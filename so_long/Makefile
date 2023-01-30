@@ -19,7 +19,8 @@ exiting.c draw_map.c moves.c \
 OBJ = $(addprefix $(SRC_DIR), $(SRC:.c=.o))
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-GLFW_FLAGS = -lglfw -L /Users/mahender/.brew/opt/glfw/lib/ -L ./source
+//GLFW_FLAGS = -lglfw -L /Users/mahender/.brew/opt/glfw/lib/ -L ./source
+GLFW_FLAGS = -lglfw -L /Users/mariavalentinahenderson/.brew/opt/glfw/lib/ -L ./source
 LIBFT_PATH = ./libft
 PRINTF_PATH = ./printf
 MLX42_PATH = ./MLX42
