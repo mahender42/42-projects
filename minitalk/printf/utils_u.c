@@ -57,7 +57,7 @@ int	nlen(long n)
 	return (len);
 }
 
-char	*ft_itoa(int nb)
+char	*ft_itoa_pf(int nb)
 {
 	char	*str;
 	int		len;
@@ -84,7 +84,7 @@ char	*ft_itoa(int nb)
 	return (str);
 }
 
-char	*ft_strdup(const char *s1)
+/*char	*ft_strdup(const char *s1)
 {
 	char	*ptr;
 	int		size;
@@ -104,4 +104,4 @@ char	*ft_strdup(const char *s1)
 	}
 	ptr[i] = '\0';
 	return (ptr);
-}
+}*/

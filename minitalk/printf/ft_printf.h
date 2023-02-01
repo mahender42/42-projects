@@ -19,9 +19,9 @@
 
 int		ft_printf(char const *s, ...);
 int		printer(va_list args, const char c);
-size_t	ft_strlen(const char *str);
+size_t	ft_strlen_pf(const char *str);
 int		nlen(long n);
-char	*ft_itoa(int nb);
+char	*ft_itoa_pf(int nb);
 int		ad_putchar_fd(char c, int fd);
 int		ad_putstr_fd(char *s, int fd);
 int		ad_putstr(char *s);

@@ -24,7 +24,7 @@ int	printer(va_list args, const char c)
 	if (c == 'p')
 		len += ft_printptr(va_arg(args, unsigned long long));
 	if (c == 'd' || c == 'i')
-		len += ad_putstr_fd(ft_itoa(va_arg(args, int)), 1);
+		len += ad_putstr_fd(ft_itoa_pf(va_arg(args, int)), 1);
 	if (c == 'u')
 		len += ad_putstr_fd(ft_uitoa(va_arg(args, unsigned int)), 1);
 	if (c == 'x')
