@@ -18,7 +18,22 @@
 
 static void	action(int sig, siginfo_t *info, void *context)
 {
-	ft_printf("Nro de señal: %d", sig);
+	static unsigned char	chr = 0;
+	static int		i = 0;
+	
+	if (sig == SIGUSR1)
+		chr |= 1;  //ft_printf("1");
+	else if (sig == SIGUSR2)
+		chr |= 0;  //ft_printf("0");
+
+	if (++i == 8)
+	{
+		ft_putchar_fd(chr, 1);
+		i = 0;
+		chr = 0;
+	}
+	else
+		chr <<= 1;
 }
 
 int	main(void)
@@ -30,6 +45,7 @@ int	main(void)
 	write (1, "\n", 1);
 	sa.sa_sigaction = action;
 	sigaction(SIGUSR1, &sa, 0);
+	sigaction(SIGUSR2, &sa, 0);
 	while (1)
 		pause();
 	return (0);

@@ -42,6 +42,7 @@ int	ft_atoi(const char *str)
 
 /*int	main(void)
 {
-	printf("%d", ft_atoi("Holaaa"));
+	printf("%d \n", ft_atoi("11111"));
+	printf("%d", atoi("11111"));
 	return(0);
 }*/
