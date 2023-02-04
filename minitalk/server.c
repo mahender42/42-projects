@@ -18,18 +18,28 @@
 static void	action(int sig, siginfo_t *info, void *context)
 {
 	static unsigned char	chr = 0;
-	static int		i = 0;
-	
-	if (sig == SIGUSR1)
-		chr |= 1;  //ft_printf("1");
-	else if (sig == SIGUSR2)
-		chr |= 0;  //ft_printf("0");
+	static int				i = 0;
+	static pid_t			clientpid = 0;
 
+	(void)context;
+	if (!clientpid)
+		clientpid = info->si_pid;
+	if (sig == SIGUSR1)
+		chr |= 1;
+	else if (sig == SIGUSR2)
+		chr |= 0;
 	if (++i == 8)
 	{
-		ft_putchar_fd(chr, 1);
 		i = 0;
+		if (!chr)
+		{
+			kill(clientpid, SIGUSR2);
+			clientpid = 0;
+			return ;
+		}
+		ft_putchar_fd(chr, 1);
 		chr = 0;
+		kill(clientpid, SIGUSR1);
 	}
 	else
 		chr <<= 1;
@@ -41,8 +51,9 @@ int	main(void)
 
 	ft_putstr_fd("PID: ", 1);
 	ft_putnbr_fd(getpid(), 1);
-	write (1, "\n", 1);
+	write(1, "\n", 1);
 	sa.sa_sigaction = action;
+	sa.sa_flags = SA_SIGINFO;
 	sigaction(SIGUSR1, &sa, 0);
 	sigaction(SIGUSR2, &sa, 0);
 	while (1)
