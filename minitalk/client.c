@@ -13,7 +13,6 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include "libft/libft.h"
-#include "printf/ft_printf.h"
 
 static void	action(int pid)
 {
@@ -23,7 +22,6 @@ static void	action(int pid)
 
 void sendsig(int pid, char c)
 {
-    char	binario[8];
 	int		j;
 	
 	j = 7;
@@ -57,8 +55,8 @@ int	main(int argc, char **argv)
 			sendsig(pid, str[i]);
 			i++;
 		}
-		signal(SIGUSR1, &action);
-		signal(SIGUSR2, &action);
+		//signal(SIGUSR1, &action);
+		//signal(SIGUSR2, &action);
 		//while (1)
 		//	pause();
 		return (0);
