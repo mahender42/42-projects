@@ -19,11 +19,8 @@ static void	action(int sig, siginfo_t *info, void *context)
 {
 	static unsigned char	chr = 0;
 	static int				i = 0;
-	static pid_t			clientpid = 0;
 
 	(void)context;
-	if (!clientpid)
-		clientpid = info->si_pid;
 	if (sig == SIGUSR1)
 		chr |= 1;
 	else if (sig == SIGUSR2)
@@ -33,13 +30,12 @@ static void	action(int sig, siginfo_t *info, void *context)
 		i = 0;
 		if (!chr)
 		{
-			kill(clientpid, SIGUSR2);
-			clientpid = 0;
+			kill(info->si_pid, SIGUSR2);
 			return ;
 		}
 		ft_putchar_fd(chr, 1);
 		chr = 0;
-		kill(clientpid, SIGUSR1);
+		kill(info->si_pid, SIGUSR1);
 	}
 	else
 		chr <<= 1;
@@ -53,6 +49,7 @@ int	main(void)
 	ft_putnbr_fd(getpid(), 1);
 	write(1, "\n", 1);
 	sa.sa_sigaction = action;
+	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = SA_SIGINFO;
 	sigaction(SIGUSR1, &sa, 0);
 	sigaction(SIGUSR2, &sa, 0);
