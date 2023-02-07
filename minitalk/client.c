@@ -69,6 +69,7 @@ int	main(int argc, char **argv)
 		sendsig(pid, str);
 		while (1)
 			pause();
+		free(str);
 		return (0);
 	}
 	else
