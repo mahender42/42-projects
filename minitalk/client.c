@@ -14,17 +14,18 @@
 #include <sys/types.h>
 #include "libft/libft.h"
 
-static void	action(int sig)
+static void	resp_act(int sig)
 {
 	static int	ok = 0;
 
 	if (sig == SIGUSR1)
-		ok++;
+	//	ft_putstr_fd("Recibido.\n", 1);
+		++ok;
 	else
 	{
-		ft_putstr_fd("Signals well received: ", 1);
+		//ft_putstr_fd("Signals well received: ", 1);
 		ft_putnbr_fd(ok, 1);
-		ft_putstr_fd("String sent. Client ends.", 1);
+		//ft_putstr_fd("String sent. Client ends.", 1);
 		exit(0);
 	}
 }
@@ -64,15 +65,17 @@ int	main(int argc, char **argv)
 		if (!str)
 			return (-1);
 		ft_strlcpy(str, argv[2], (ft_strlen(argv[2]) + 1));
-		signal(SIGUSR1, action);
-		signal(SIGUSR2, action);
+		ft_putstr_fd("Signals received: ", 1);
+		signal(SIGUSR1, resp_act);
+		signal(SIGUSR2, resp_act);
 		sendsig(pid, str);
 		while (1)
 			pause();
 		free(str);
-		return (0);
 	}
 	else
-		ft_putstr_fd("Wrong number of arguments", 1);
+		ft_putstr_fd("Wrong number of arguments\n", 1);
+		ft_putstr_fd("Try: ./client [PID] [STRING]", 1);
+
 	return (0);
 }
