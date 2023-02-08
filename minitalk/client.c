@@ -61,14 +61,14 @@ int	main(int argc, char **argv)
 
 	if (argc == 3)
 	{
+		signal(SIGUSR1, resp_act);
+		signal(SIGUSR2, resp_act);
 		pid = ft_atoi(argv[1]);
 		str = malloc(sizeof(char) * ft_strlen(argv[2]) + 1);
 		if (!str)
 			return (-1);
 		ft_strlcpy(str, argv[2], (ft_strlen(argv[2]) + 1));
 		//ft_putstr_fd("Signals received: ", 1);
-		signal(SIGUSR1, resp_act);
-		signal(SIGUSR2, resp_act);
 		sendsig(pid, str);
 		while (1)
 			pause();
