@@ -13,6 +13,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include "libft/libft.h"
+#include <stdio.h>
 
 static void	resp_act(int sig)
 {
@@ -65,7 +66,7 @@ int	main(int argc, char **argv)
 		if (!str)
 			return (-1);
 		ft_strlcpy(str, argv[2], (ft_strlen(argv[2]) + 1));
-		ft_putstr_fd("Signals received: ", 1);
+		//ft_putstr_fd("Signals received: ", 1);
 		signal(SIGUSR1, resp_act);
 		signal(SIGUSR2, resp_act);
 		sendsig(pid, str);

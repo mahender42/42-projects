@@ -28,14 +28,14 @@ static void	action(int sig, siginfo_t *info, void *context)
 	if (++i == 8)
 	{
 		i = 0;
-		if (!chr)
+		if (chr == '\0')
 		{
 			kill(info->si_pid, SIGUSR2);
 			return ;
 		}
 		ft_putchar_fd(chr, 1);
 		chr = 0;
-		kill(info->si_pid, SIGUSR1);
+		//kill(info->si_pid, SIGUSR1);
 	}
 	else
 		chr <<= 1;
