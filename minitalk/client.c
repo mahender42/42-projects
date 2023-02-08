@@ -20,14 +20,29 @@ static void	resp_act(int sig)
 	static int	ok = 0;
 
 	if (sig == SIGUSR1)
-	//	ft_putstr_fd("Recibido.\n", 1);
 		++ok;
-	else
+	else if (sig == SIGUSR2)
 	{
-		//ft_putstr_fd("Signals well received: ", 1);
+		ft_putstr_fd("Signals well received: ", 1);
 		ft_putnbr_fd(ok, 1);
-		//ft_putstr_fd("String sent. Client ends.", 1);
+		ft_putstr_fd("\nString sent. Client ends.", 1);
 		exit(0);
+	}
+}
+
+void	send_null(int pid)
+{
+	int	j;
+
+	j = 7;
+	while (j >= 0)
+	{
+		if ('\0' & (1 << j))
+			kill(pid, SIGUSR1);
+		else
+			kill(pid, SIGUSR2);
+		usleep(100);
+		j--;
 	}
 }
 
@@ -51,6 +66,7 @@ void	sendsig(int pid, char *str)
 		}
 		i++;
 	}
+	send_null(pid);
 }
 
 int	main(int argc, char **argv)
@@ -68,7 +84,6 @@ int	main(int argc, char **argv)
 		if (!str)
 			return (-1);
 		ft_strlcpy(str, argv[2], (ft_strlen(argv[2]) + 1));
-		//ft_putstr_fd("Signals received: ", 1);
 		sendsig(pid, str);
 		while (1)
 			pause();
@@ -77,6 +92,5 @@ int	main(int argc, char **argv)
 	else
 		ft_putstr_fd("Wrong number of arguments\n", 1);
 		ft_putstr_fd("Try: ./client [PID] [STRING]", 1);
-
 	return (0);
 }

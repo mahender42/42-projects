@@ -35,7 +35,7 @@ static void	action(int sig, siginfo_t *info, void *context)
 		}
 		ft_putchar_fd(chr, 1);
 		chr = 0;
-		//kill(info->si_pid, SIGUSR1);
+		kill(info->si_pid, SIGUSR1);
 	}
 	else
 		chr <<= 1;
