@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server1.c                                          :+:      :+:    :+:   */
+/*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mahender <mahender@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/01 15:39:06 by mahender          #+#    #+#             */
-/*   Updated: 2023/02/01 15:39:10 by mahender         ###   ########.fr       */
+/*   Created: 2023/02/17 14:28:50 by mahender          #+#    #+#             */
+/*   Updated: 2023/02/17 14:28:53 by mahender         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,13 @@ static void	action(int sig, siginfo_t *info, void *context)
 	{
 		i = 0;
 		if (chr == '\0')
+		{
+			kill(info->si_pid, SIGUSR2);
 			return ;
+		}
 		ft_putchar_fd(chr, 1);
 		chr = 0;
+		kill(info->si_pid, SIGUSR1);
 	}
 	else
 		chr <<= 1;

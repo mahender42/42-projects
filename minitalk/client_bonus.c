@@ -1,18 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mahender <mahender@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/30 18:35:58 by mahender          #+#    #+#             */
-/*   Updated: 2023/02/04 12:36:41 by mahender         ###   ########.fr       */
+/*   Created: 2023/02/17 14:26:22 by mahender          #+#    #+#             */
+/*   Updated: 2023/02/17 14:26:24 by mahender         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include <signal.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include "libft/libft.h"
+
+static void	resp_act(int sig)
+{
+	static int	ok = 0;
+
+	if (sig == SIGUSR1)
+		++ok;
+	else if (sig == SIGUSR2)
+	{
+		ft_putstr_fd("Signals well received: ", 1);
+		ft_putnbr_fd(ok, 1);
+		ft_putstr_fd("\nString sent. Client ends.", 1);
+		exit(0);
+	}
+}
 
 void	send_null(int pid)
 {
@@ -51,7 +67,6 @@ void	sendsig(int pid, char *str)
 		i++;
 	}
 	send_null(pid);
-	exit(0);
 }
 
 int	main(int argc, char **argv)
@@ -62,6 +77,8 @@ int	main(int argc, char **argv)
 
 	if (argc == 3)
 	{
+		signal(SIGUSR1, resp_act);
+		signal(SIGUSR2, resp_act);
 		pid = ft_atoi(argv[1]);
 		str = malloc(sizeof(char) * ft_strlen(argv[2]) + 1);
 		if (!str)
