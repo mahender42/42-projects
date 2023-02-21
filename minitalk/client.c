@@ -56,7 +56,6 @@ void	sendsig(int pid, char *str)
 
 int	main(int argc, char **argv)
 {
-	struct sigaction	sa;
 	int					pid;
 	char				*str;
 

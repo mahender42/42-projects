@@ -23,9 +23,9 @@ static void	resp_act(int sig)
 		++ok;
 	else if (sig == SIGUSR2)
 	{
-		ft_putstr_fd("Signals well received: ", 1);
+		ft_putstr_fd("\033[0;34mSignals well received: ", 1);
 		ft_putnbr_fd(ok, 1);
-		ft_putstr_fd("\nString sent. Client ends.", 1);
+		ft_putstr_fd("\nString sent. Client ends.\033[0m", 1);
 		exit(0);
 	}
 }
@@ -71,7 +71,6 @@ void	sendsig(int pid, char *str)
 
 int	main(int argc, char **argv)
 {
-	struct sigaction	sa;
 	int					pid;
 	char				*str;
 
